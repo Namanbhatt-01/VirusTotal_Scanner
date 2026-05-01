@@ -133,7 +133,7 @@ This project is continuously evolving. Planned future enhancements include:
 
 ---
 
-## 🕵️ Interview FAQ (Cheat Sheet)
+## 🕵️ Interview FAQ (Security Engineering Deep-Dive)
 
 **Q: Why use SHA-256 instead of MD5?**
 > *A: MD5 is vulnerable to collision attacks where two different files can have the same hash. SHA-256 is the current industry standard for cryptographic file integrity and is what most Threat Intel platforms use for indexing.*
@@ -141,8 +141,11 @@ This project is continuously evolving. Planned future enhancements include:
 **Q: How do you handle API Rate Limits?**
 > *A: I implemented a `scan_interval` and a local `history.cache`. By "remembering" what we have already scanned, we avoid redundant API calls, preserving our quota and staying within the Free Tier limits.*
 
-**Q: Why encrypt the local cache?**
-> *A: "Anti-Forensics" is a common malware tactic. If malware detects a scanner, it might try to edit the scanner's history to mark itself as "Safe." Encrypting the cache with AES-256 ensures the tool's integrity remains intact.*
+**Q: Why use AES-256 for the local cache? Does it prevent tampering?**
+> *A: To be precise, AES-256 ensures **confidentiality**, preventing trivial inspection or modification of the scan history by unauthorized users or malware. While it doesn't prevent a malicious process from deleting the file entirely, it raises the bar for "Anti-Forensics." For absolute integrity, this could be extended with HMAC or signed records.*
+
+**Q: Why did you choose flat-files instead of a database like PostgreSQL?**
+> *A: I chose a **Hybrid Storage Model** (Encrypted Cache + JSON Logs). I intentionally avoided external database dependencies to keep the tool portable and minimize its forensic footprint. This allows it to run in potentially compromised environments without requiring installation, open ports, or additional services.*
 
 **Q: What happens if a 50GB file is scanned?**
 > *A: The script uses **chunked binary reading**. It only loads 64KB of the file into RAM at a time to calculate the hash, ensuring the scanner remains stable even on low-memory systems.*
