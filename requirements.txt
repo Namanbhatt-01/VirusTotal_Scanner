@@ -1,0 +1,10 @@
+python-dotenv>=1.0.1
+pydantic>=2.7.0
+pydantic-settings>=2.2.1
+psutil>=6.0.0
+requests>=2.32.3
+pycryptodome>=3.20.0
+rich>=13.7.1
+winshell>=0.6; sys_platform == 'win32'
+pypiwin32>=223; sys_platform == 'win32'
+WMI>=1.5.1; sys_platform == 'win32'

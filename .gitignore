@@ -1,0 +1,22 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+venv/
+.venv/
+
+# Environment Variables (CRITICAL: Never upload these)
+.env
+
+# Project Specific Logs & Data
+logs.txt
+history.cache
+scanned_files.json
+scans/
+eicar.com.txt
+scratch/
+
+# IDEs
+.vscode/
+.idea/
+.DS_Store
